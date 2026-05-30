@@ -5,8 +5,8 @@ from pathlib import Path
 import h5py
 import numpy as np
 
-from em_benchmark.datasets.synthetic import MicroscopyDataset
-from em_benchmark.rewards import spectrum_sum_scalarizer
+from MicroscopyStructurePropertyBenchmark.datasets.synthetic import MicroscopyDataset
+from MicroscopyStructurePropertyBenchmark.rewards import spectrum_sum_scalarizer
 
 
 def load_stem_h5_dataset(

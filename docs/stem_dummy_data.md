@@ -86,7 +86,7 @@ dataset:
 The loader lives in:
 
 ```text
-src/em_benchmark/datasets/stem_h5.py
+src/MicroscopyStructurePropertyBenchmark/datasets/stem_h5.py
 ```
 
 It reads:
@@ -106,7 +106,7 @@ The spectrum image plus energy axis goes into the scalarizer.
 Scalarizers live in:
 
 ```text
-src/em_benchmark/rewards.py
+src/MicroscopyStructurePropertyBenchmark/rewards.py
 ```
 
 Supported scalarizers:
@@ -151,7 +151,7 @@ Implemented model paths:
 The main loop lives in:
 
 ```text
-src/em_benchmark/runners/active_learning.py
+src/MicroscopyStructurePropertyBenchmark/runners/active_learning.py
 ```
 
 Each BO step does:

@@ -6,7 +6,7 @@ from pathlib import Path
 
 import yaml
 
-from em_benchmark.runners.active_learning import run_benchmark
+from MicroscopyStructurePropertyBenchmark.runners.active_learning import run_benchmark
 
 
 def main() -> None:

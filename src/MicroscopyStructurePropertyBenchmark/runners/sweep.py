@@ -6,7 +6,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from em_benchmark.runners.active_learning import BenchmarkResult, run_benchmark
+from MicroscopyStructurePropertyBenchmark.runners.active_learning import BenchmarkResult, run_benchmark
 
 
 def run_sweep(config: dict[str, Any]) -> list[dict[str, Any]]:

@@ -6,7 +6,7 @@ from pathlib import Path
 
 import yaml
 
-from em_benchmark.runners.sweep import run_sweep
+from MicroscopyStructurePropertyBenchmark.runners.sweep import run_sweep
 
 
 def main() -> None:

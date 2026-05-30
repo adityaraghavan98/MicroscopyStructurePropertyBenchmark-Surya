@@ -4,12 +4,12 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
-from em_benchmark.acquisition import beacon_scores, expected_improvement_scores, random_scores, upper_confidence_bound_scores
-from em_benchmark.datasets import load_stem_h5_dataset, make_synthetic_dataset
-from em_benchmark.io import OutputWriter
-from em_benchmark.metrics import mae, mse, nlpd, observed_value_coverage
-from em_benchmark.models import DKLRegressor, GPyTorchRegressor
-from em_benchmark.representations import PCARepresentation
+from MicroscopyStructurePropertyBenchmark.acquisition import beacon_scores, expected_improvement_scores, random_scores, upper_confidence_bound_scores
+from MicroscopyStructurePropertyBenchmark.datasets import load_stem_h5_dataset, make_synthetic_dataset
+from MicroscopyStructurePropertyBenchmark.io import OutputWriter
+from MicroscopyStructurePropertyBenchmark.metrics import mae, mse, nlpd, observed_value_coverage
+from MicroscopyStructurePropertyBenchmark.models import DKLRegressor, GPyTorchRegressor
+from MicroscopyStructurePropertyBenchmark.representations import PCARepresentation
 
 
 @dataclass

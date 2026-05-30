@@ -1,13 +1,14 @@
 [project]
-name = "em-benchmark"
+name = "MicroscopyStructurePropertyBenchmark"
 version = "0.1.0"
-description = "Minimal benchmarks for learning structure-property relationships in electron microscopy."
+description = "Benchmark datasets and baselines for learning structure-property relationships from microscopy data."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [
   { name = "Utkarsh Pratiush" }
 ]
+
 dependencies = [
   "numpy>=1.24",
   "pyyaml>=6.0",
@@ -25,8 +26,8 @@ dev = [
 ]
 
 [project.scripts]
-em-benchmark = "em_benchmark.cli:main"
-em-benchmark-sweep = "em_benchmark.sweep_cli:main"
+mspb = "MicroscopyStructurePropertyBenchmark.cli:main"
+mspb-sweep = "MicroscopyStructurePropertyBenchmark.sweep_cli:main"
 
 [build-system]
 requires = ["setuptools>=68", "wheel"]

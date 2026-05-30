@@ -1,9 +1,9 @@
 import numpy as np
 
-from em_benchmark.datasets import make_synthetic_dataset
-from em_benchmark.metrics import observed_value_coverage
-from em_benchmark.runners.active_learning import run_benchmark
-from em_benchmark.runners.sweep import run_sweep
+from MicroscopyStructurePropertyBenchmark.datasets import make_synthetic_dataset
+from MicroscopyStructurePropertyBenchmark.metrics import observed_value_coverage
+from MicroscopyStructurePropertyBenchmark.runners.active_learning import run_benchmark
+from MicroscopyStructurePropertyBenchmark.runners.sweep import run_sweep
 
 
 def test_synthetic_dataset_shapes():
