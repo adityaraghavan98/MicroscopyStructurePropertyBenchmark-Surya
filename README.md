@@ -1,18 +1,18 @@
 # MicroscopyStructurePropertyBenchmark - In active development  - This Readme might not be updated!
 
-**What it is** — Minimal active-learning loop for structure-property relationships in electron microscopy. Small, modular, easy to extend.
+**What it is**: Minimal active-learning loop for structure-property relationships in electron microscopy. Small, modular, easy to extend.
 
-**Pipeline** — `dataset → representation → model → acquisition → reward/metric → log`
+**Pipeline** : `dataset → representation → model → acquisition → reward/metric → log`
 
 ---
 
 **Quick start**
 
-​```bash
+```bash
 uv sync --extra dev
 
 uv run mspb --config configs/pca_gp_ei.yaml
-​```
+```
 
 Real STEM file: place `test_stem.h5` at `data/raw/`, use `configs/stem_pca_gp_ei.yaml`.  
 Sweep all methods: `uv run mspb-sweep --config configs/stem_all_methods.yaml`
