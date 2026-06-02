@@ -24,6 +24,7 @@ data/
 outputs/
 .matplotlib-cache/
 *.h5
+!data/raw/test_stem.h5
 *.hdf5
 *.pkl
 *.pickle
@@ -43,3 +44,4 @@ fig*.pdf
 .ipynb_checkpoints/
 
 llm-context/
+
