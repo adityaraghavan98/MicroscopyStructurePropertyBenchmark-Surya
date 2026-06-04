@@ -7,16 +7,6 @@ dataset:
   reward: dipole
   normalize_reward: true
 
-rewards:
-  - name: peak_intensity
-    reward_energy_range: [0.35, 0.55]
-
-  - name: composition
-    reward_energy_range: [0.35, 0.55]
-
-  - name: edge
-    reward_energy_range: [0.60, 0.75]
-
 benchmark:
   initial_points: 12
   steps: 100
