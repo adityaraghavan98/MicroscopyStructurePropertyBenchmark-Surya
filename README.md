@@ -4,15 +4,16 @@ What it is: Minimal active-learning loop for structure-property relationships in
 Pipeline : dataset → representation → model → acquisition → reward/metric → log
 
 Quick start
-
+bash
 uv sync --extra dev
 
 uv run mspb --config configs/pca_gp_ei.yaml
+
 Real STEM file: place test_stem.h5 at data/raw/, use configs/stem_pca_gp_ei.yaml.
 Sweep all methods: uv run mspb-sweep --config configs/stem_all_methods.yaml
 
 Plotting results? - only available for mspb-sweep (i.e all methods sweep option)
-
+python
 Plotting: 
 uv run python scripts/postprocess_csv.py --csv outputs/stem_all_methods_100_steps.csv
 
