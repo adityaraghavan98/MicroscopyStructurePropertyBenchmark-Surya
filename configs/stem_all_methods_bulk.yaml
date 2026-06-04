@@ -5,6 +5,7 @@ dataset:
   path: data/raw/test_stem.h5
   patch_size: 8
   reward: bulk
+  reward_energy_range: [0.80, 1.00]
   normalize_reward: true
 
 benchmark:
