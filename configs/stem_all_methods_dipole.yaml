@@ -5,6 +5,7 @@ dataset:
   path: data/raw/test_stem.h5
   patch_size: 8
   reward: dipole
+  reward_energy_range: [0.35, 0.55]
   normalize_reward: true
 
 benchmark:
