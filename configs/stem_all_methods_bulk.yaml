@@ -1,1 +1,118 @@
+seed: 11
 
+dataset:
+  name: stem_h5
+  path: data/raw/test_stem.h5
+  patch_size: 8
+  reward: bulk
+  normalize_reward: true
+
+rewards:
+  - name: peak_intensity
+    reward_energy_range: [0.35, 0.55]
+
+  - name: composition
+    reward_energy_range: [0.35, 0.55]
+
+  - name: edge
+    reward_energy_range: [0.60, 0.75]
+
+benchmark:
+  initial_points: 12
+  steps: 100
+
+output:
+  dir: outputs
+  csv: outputs/stem_all_methods_100_steps.csv
+  log: outputs/stem_all_methods_100_steps.log
+  jsonl_log: outputs/stem_all_methods_100_steps_log.jsonl
+  save_artifacts: false
+
+checkpoint:
+  save_model: false
+  load_model_path:
+
+methods:
+  - name: pca_gp_ei
+    representation:
+      name: pca
+      n_components: 16
+    model:
+      name: gpytorch_gp
+      training_steps: 100
+      learning_rate: 0.08
+    acquisition:
+      name: expected_improvement
+
+  - name: pca_gp_mu
+    representation:
+      name: pca
+      n_components: 16
+    model:
+      name: gpytorch_gp
+      training_steps: 100
+      learning_rate: 0.08
+    acquisition:
+      name: upper_confidence_bound
+      beta: 100000
+
+  - name: pca_gp_random
+    representation:
+      name: pca
+      n_components: 16
+    model:
+      name: gpytorch_gp
+      training_steps: 100
+      learning_rate: 0.08
+    acquisition:
+      name: random
+
+  - name: dkl_ei
+    representation:
+      name: patches
+    model:
+      name: dkl
+      training_steps: 100
+      learning_rate: 0.01
+      feature_dim: 16
+      inducing_points: 12
+    acquisition:
+      name: expected_improvement
+
+  - name: dkl_mu
+    representation:
+      name: patches
+    model:
+      name: dkl
+      training_steps: 100
+      learning_rate: 0.01
+      feature_dim: 16
+      inducing_points: 12
+    acquisition:
+      name: upper_confidence_bound
+      beta: 100000
+
+  - name: dkl_beacon
+    representation:
+      name: patches
+    model:
+      name: dkl
+      training_steps: 100
+      learning_rate: 0.01
+      feature_dim: 16
+      inducing_points: 12
+    acquisition:
+      name: beacon
+      elite_fraction: 0.2
+
+  - name: dkl_random
+    representation:
+      name: patches
+    model:
+      name: dkl
+      training_steps: 100
+      learning_rate: 0.01
+      feature_dim: 16
+      inducing_points: 12
+    acquisition:
+      name: random
