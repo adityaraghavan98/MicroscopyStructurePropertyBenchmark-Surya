@@ -270,5 +270,14 @@ def _make_dataset(config: dict, seed: int):
             patch_size=int(config.get("patch_size", 8)),
             reward=config.get("reward", "dipole"),
             normalize_reward=bool(config.get("normalize_reward", True)),
+            reward_energy_range=_optional_float_pair(config.get("reward_energy_range")),
         )
     raise ValueError(f"Unknown dataset: {name}")
+
+
+def _optional_float_pair(value) -> tuple[float, float] | None:
+    if value is None:
+        return None
+    if not isinstance(value, list | tuple) or len(value) != 2:
+        raise ValueError("reward_energy_range must be a two-value list, for example [0.35, 0.55].")
+    return float(value[0]), float(value[1])

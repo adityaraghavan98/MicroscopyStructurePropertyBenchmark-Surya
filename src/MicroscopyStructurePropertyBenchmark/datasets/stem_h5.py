@@ -14,6 +14,7 @@ def load_stem_h5_dataset(
     patch_size: int = 8,
     reward: str = "dipole",
     normalize_reward: bool = True,
+    reward_energy_range: tuple[float, float] | None = None,
     image_path: str = "Measurement_000/Channel_000/generic/generic",
     spectrum_path: str = "Measurement_000/Channel_001/generic/generic",
     energy_path: str = "Measurement_000/Channel_001/generic/energy_scale",
@@ -30,6 +31,7 @@ def load_stem_h5_dataset(
         energy_axis=energy_axis,
         reward=reward,
         normalize=normalize_reward,
+        energy_range=reward_energy_range,
     )
     coords = _coord_grid(image.shape)
     patches = _patches_from_image(image, coords, patch_size)

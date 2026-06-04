@@ -32,7 +32,18 @@ uv run python scripts/postprocess_csv.py --csv outputs/stem_all_methods_100_step
 
 **Acquisition** — `EI`, `UCB`, `beacon`, `random`
 
-**Rewards** — `dipole` (0.35–0.55 eV), `edge` (0.60–0.75 eV), `bulk` (0.80–1.00 eV), `zero`
+**Rewards** — `dipole` (0.35–0.55 eV), `edge` (0.60–0.75 eV), `bulk` (0.80–1.00 eV), `composition`, `peak_intensity`, `defect`, `gradient`, `zero`
+
+For STEM H5 runs, choose a reward in the dataset config:
+
+```yaml
+dataset:
+  name: stem_h5
+  reward: composition
+  reward_energy_range: [0.35, 0.55]
+```
+
+Use `reward_energy_range` for `composition` and `peak_intensity` when targeting a known elemental or spectral window. `defect` and `gradient` can run without a chosen window because they use the full spectrum by default.
 
 ---
 

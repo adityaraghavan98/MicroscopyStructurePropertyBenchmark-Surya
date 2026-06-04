@@ -4,8 +4,17 @@ dataset:
   name: stem_h5
   path: data/raw/test_stem.h5
   patch_size: 8
-  reward: dipole
   normalize_reward: true
+
+rewards:
+  - name: peak_intensity
+    reward_energy_range: [0.35, 0.55]
+
+  - name: composition
+    reward_energy_range: [0.35, 0.55]
+
+  - name: edge
+    reward_energy_range: [0.60, 0.75]
 
 benchmark:
   initial_points: 12
