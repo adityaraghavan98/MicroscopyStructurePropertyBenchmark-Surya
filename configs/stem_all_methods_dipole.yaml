@@ -14,9 +14,9 @@ benchmark:
 
 output:
   dir: outputs
-  csv: outputs/stem_all_methods_100_steps.csv
-  log: outputs/stem_all_methods_100_steps.log
-  jsonl_log: outputs/stem_all_methods_100_steps_log.jsonl
+  csv: outputs/stem_all_methods_dipole_100_steps.csv
+  log: outputs/stem_all_methods_dipole_100_steps.log
+  jsonl_log: outputs/stem_all_methods_dipole_100_steps_log.jsonl
   save_artifacts: false
 
 checkpoint:
