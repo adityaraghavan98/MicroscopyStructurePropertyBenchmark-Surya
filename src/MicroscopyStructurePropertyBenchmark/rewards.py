@@ -10,7 +10,14 @@ ENERGY_RANGES: dict[str, tuple[float, float]] = {
 }
 
 STRUCTURAL_REWARDS = {"defect", "gradient"}
-WINDOWED_REWARDS = {"composition", "peak", "peak_intensity"}
+WINDOWED_REWARDS = {
+    "composition",
+    "peak",
+    "peak_intensity",
+    "fitted_peak_area",
+    "fitted_peak_center",
+    "fitted_peak_width",
+}
 
 
 def spectrum_sum_scalarizer(
@@ -32,6 +39,13 @@ def spectrum_sum_scalarizer(
         scalarizer = composition_scalarizer(spectrum_image, energy_axis, energy_range)
     elif reward in {"peak", "peak_intensity"}:
         scalarizer = peak_intensity_scalarizer(spectrum_image, energy_axis, energy_range)
+    elif reward in {"fitted_peak_area", "fitted_peak_center", "fitted_peak_width"}:
+        scalarizer = fitted_peak_scalarizer(
+            spectrum_image,
+            energy_axis,
+            energy_range,
+            parameter=reward.removeprefix("fitted_peak_"),
+        )
     else:
         if reward not in ENERGY_RANGES:
             valid = ", ".join(sorted([*ENERGY_RANGES, *STRUCTURAL_REWARDS, *WINDOWED_REWARDS, "zero"]))
@@ -64,44 +78,22 @@ def peak_intensity_scalarizer(
     return spectrum_image[:, :, start : end + 1].max(axis=-1).astype(np.float32)
 
 
-def defect_scalarizer(spectrum_image: np.ndarray, eps: float = 1e-6) -> np.ndarray:
-    """Return high values for spectra that are robustly far from the median spectrum."""
-
-    spectra = np.asarray(spectrum_image, dtype=np.float32)
-    flat = spectra.reshape(-1, spectra.shape[-1])
-    median_spectrum = np.median(flat, axis=0)
-    mad_spectrum = np.median(np.abs(flat - median_spectrum), axis=0)
-    robust_z = (flat - median_spectrum) / (1.4826 * mad_spectrum + eps)
-    scores = np.sqrt(np.mean(robust_z**2, axis=1))
-    return scores.reshape(spectra.shape[:2]).astype(np.float32)
-
-
-def gradient_scalarizer(spectrum_image: np.ndarray) -> np.ndarray:
-    """Return high values where the integrated spectral signal changes quickly."""
-
-    intensity = np.asarray(spectrum_image, dtype=np.float32).sum(axis=-1)
-    grad_y, grad_x = np.gradient(intensity)
-    return np.sqrt(grad_x**2 + grad_y**2).astype(np.float32)
-
-
-def _energy_window_indices(
+def fitted_peak_scalarizer(
+    spectrum_image: np.ndarray,
     energy_axis: np.ndarray,
     energy_range: tuple[float, float] | None = None,
-) -> tuple[int, int]:
-    if energy_range is None:
-        return 0, len(energy_axis) - 1
-    e_min, e_max = energy_range
-    start = int(np.abs(energy_axis - e_min).argmin())
-    end = int(np.abs(energy_axis - e_max).argmin())
-    if end < start:
-        start, end = end, start
-    return start, end
+    parameter: str = "area",
+) -> np.ndarray:
+    """Fit a Gaussian peak plus linear background and return a fitted peak parameter."""
+
+    start, end = _energy_window_indices(energy_axis, energy_range)
+    energy = np.asarray(energy_axis[start : end + 1], dtype=np.float32)
+    spectra = np.asarray(spectrum_image[:, :, start : end + 1], dtype=np.float32)
+    flat = spectra.reshape(-1, spectra.shape[-1])
+    fitted = np.array([_fit_gaussian_peak(energy, spectrum, parameter) for spectrum in flat], dtype=np.float32)
+    return fitted.reshape(spectra.shape[:2])
 
 
-def normalize_values(values: np.ndarray) -> np.ndarray:
-    values = np.asarray(values, dtype=np.float32)
-    min_value = float(np.min(values))
-    max_value = float(np.max(values))
-    if np.isclose(max_value, min_value):
-        return np.zeros_like(values, dtype=np.float32)
-    return ((values - min_value) / (max_value - min_value)).astype(np.float32)
+def _fit_gaussian_peak(energy: np.ndarray, spectrum: np.ndarray, parameter: str) -> float:
+    if energy.size < 4 or np.isclose(float(np.ptp(energy)), 0.0):
+        return 0.0
