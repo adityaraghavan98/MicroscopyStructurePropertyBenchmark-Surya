@@ -1,4 +1,4 @@
-MicroscopyStructurePropertyBenchmark - In active development - This Readme might not be updated!
+Aditya-MicroscopyStructurePropertyBenchmark - In active development - This Readme might not be updated!
 What it is: Minimal active-learning loop for structure-property relationships in electron microscopy. Small, modular, easy to extend.
 
 Pipeline : dataset → representation → model → acquisition → reward/metric → log
